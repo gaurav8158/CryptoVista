@@ -5,7 +5,7 @@ import TabList from "@mui/lab/TabList";
 import TabPanel from "@mui/lab/TabPanel";
 import Listview from "../Listview/Listview.jsx";
 import GridView from "../GridView/GridView.jsx";
-import "./style.css";
+import "./Style.css";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 export default function TabComponents({ data }) {
