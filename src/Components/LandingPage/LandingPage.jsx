@@ -45,12 +45,16 @@ const LandingPage = () => {
           <RWebShare
             data={{
               text: "Checkout my crypto tracker made using React!",
-              url: "https://CryptoVista.netlify.app/",
+              url: "https://CryptoVista.netlify.app",
               title: "Crypto Tracker",
             }}
             onClick={() => console.log("shared successfully!")}
           >
-            <Button text="Share" outline={true} />
+            {/* <Button onClick={() => console.log("Button clicked!")} text="Share" outline={true} /> */}
+            {/* <button>CLick</button> */}
+            <p className="Link">
+              <Button text="Share" outline={true} />
+            </p>
           </RWebShare>
         </motion.div>
       </div>
