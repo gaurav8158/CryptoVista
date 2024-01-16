@@ -11,9 +11,8 @@
   background-color: transparent !important;
 
   transition: backdrop-filter 0.3s ease;
-
 }
-nav.scrolled{
+nav.scrolled {
   backdrop-filter: blur(5px);
 }
 .links {
@@ -31,6 +30,15 @@ nav.scrolled{
   color: var(--white);
   transition: all 0.3s;
 }
+.drawer-Link{
+  color: var(--white);
+  font-weight: 600;
+  font-size: 3rem;
+}
+.drawer-Link:hover{
+  color: var(--grey);
+  transition: all 0.3s;
+}
 .logo {
   font-size: 2rem;
 }
@@ -41,10 +49,24 @@ nav.scrolled{
 .drawer-links {
   background-color: var(--black);
   min-height: 100vh;
+  color: var(--white);
   height: 100%;
-  width: 40vw;
-  padding: 0.6rem;
-  padding-top: 2rem;
+  padding-left: 0rem;
+  padding: 1rem;
+  font-size: xx-large;
+  font-weight: 500;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap:2rem;
+}
+.MuiDrawer-paperAnchorRight{
+  width: 60vw !important;
+  background-color: var(--black) !important;
+  color: var(--white) !important;
+}
+.css-1160xiw-MuiPaper-root-MuiDrawer-paper{
+  background-color: var(--black);
 }
 @media only screen and (max-width: 800px) {
   .header {

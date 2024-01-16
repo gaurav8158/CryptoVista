@@ -111,8 +111,8 @@ const ComparePage = () => {
       const prices1 = await getCoinPrices(coin1, days, toggle);
       const prices2 = await getCoinPrices(coin2, days, toggle);
       if (prices1.length > 0 && prices2.length > 0) {
+       await saveChartData(setChartData, prices1, prices2);
         setIsLoading(false);
-        saveChartData(setChartData, prices1, prices2);
       }
     }
   catch(error){

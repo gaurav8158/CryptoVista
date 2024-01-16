@@ -1,7 +1,7 @@
 import { convertDate } from "./convertDate";
 import { convertNumber } from "./convertNumber";
 
-export const saveChartData = (setChartData, prices1, prices2) => {
+export const saveChartData =async (setChartData, prices1, prices2) => {
   if (prices2) {
     setChartData(
       {

@@ -1,5 +1,5 @@
 import { Switch } from "@mui/material";
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./style.css";
 import TemporaryDrawer from "./Drawer";
 import Button from "../Button/Button";
@@ -7,16 +7,33 @@ import { Link } from "react-router-dom";
 import themeContext from "../../../Contaxt/themeContext";
 
 const Header = () => {
-  const label = { inputProps: { "aria-label": "Switch demo" } };
+
   const { theme, setTheme, toggleTheme } = useContext(themeContext);
-  window.addEventListener("scroll", () => {
-    let header = document.querySelector("nav");
-    if (window.scrollY > 0) {
-      header.classList.add("scrolled");
-    } else {
-      header.classList.remove("scrolled");
-    }
-  });
+  // window.addEventListener("scroll", () => {
+  //   let header = document.querySelector("nav");
+  //   if (window.scrollY > 0) {
+  //     header.classList.add("scrolled");
+  //   } else {
+  //     header.classList.remove("scrolled");
+  //   }
+  // });
+  useEffect(() => {
+    const handleScroll = () => {
+      let header = document.querySelector("nav");
+      if (window.scrollY > 0) {
+        header.classList.add("scrolled");
+      } else {
+        header.classList.remove("scrolled");
+      }
+    };
+  
+    window.addEventListener("scroll", handleScroll);
+  
+    return () => {
+      // Cleanup the event listener when the component unmounts
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
   console.log(theme);
   return (
     <nav className="header">
@@ -26,7 +43,10 @@ const Header = () => {
         </h1>
       </Link>
       <div className="links">
-        <Switch onClick={toggleTheme} {...label} defaultChecked />
+        <Switch
+       defaultChecked
+         value={theme=="black" ? false : true}
+        onClick={toggleTheme}  />
         <Link to="/">
           <p className="Link">Home</p>
         </Link>

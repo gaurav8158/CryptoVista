@@ -83,3 +83,8 @@ html {
   scroll-behavior: smooth;
 }
 
+
+body.drawer-open {
+  padding-right: 0 !important;
+  overflow: auto !important;
+}

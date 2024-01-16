@@ -35,6 +35,8 @@ export default function SelectCoin({ coin1, coin2, handleCoinChange }) {
     console.log(myCoin);
     if (myCoin) {
       setAllCoin(myCoin);
+    }else{
+      console.log("error"); 
     }
   }
   catch (error) {
@@ -75,7 +77,7 @@ console.log(allCoin)
           value={coin2}
           onChange={(e) => handleCoinChange(e, true)}
         >
-          {allCoin.filter((val)=>val.id!=coin1)?.map((val,i) => {
+          {allCoin.filter((val)=>val.id!==coin1)?.map((val,i) => {
           return (
               <MenuItem key={i} value={val.id}>
                 {val.name}
