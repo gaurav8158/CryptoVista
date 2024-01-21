@@ -1,38 +1,29 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import "./Listview.css";
 import StarOutlineIcon from "@mui/icons-material/StarOutline";
 import MovingIcon from "@mui/icons-material/Moving";
 import TrendingDownIcon from "@mui/icons-material/TrendingDown";
 import { Tooltip } from "@mui/material";
 import { convertNumber } from "../../../../Functions/convertNumber";
-import { motion } from "framer-motion";
 import themeContext from "../../../../Contaxt/themeContext";
 import { addWishList } from "../../../../Functions/addWhishList";
 import { Link } from "react-router-dom";
 const Listview = ({ coin }) => {
-
-  const [isPositive, setIspositive] = useState(true);
+  const coinChange = coin.price_change_percentage_24h;
   const { idArr, setIdArr } = useContext(themeContext);
   const handleStar = (id) => {
-    
     addWishList(id, setIdArr);
   };
-  useEffect(() => {
-    if (coin.price_change_percentage_24h < 0) {
-      setIspositive(false);
-    }
-  }, []);
 
   return (
     <tr className="table-flex">
       <td>
-      <Link to={`/coin/${coin.id}`}>
-        <Tooltip title="logo" placement="bottom-start">
-          <img className="coin-img" src={coin.image} />
-        </Tooltip>
-      </Link>
+        <Link to={`/coin/${coin.id}`}>
+          <Tooltip title="logo" placement="bottom-start">
+            <img className="coin-img" src={coin.image} />
+          </Tooltip>
+        </Link>
       </td>
-
       <td className="coinname">
         <Tooltip title="Symbol" placement="bottom-start">
           <h1>{coin.symbol}</h1>
@@ -42,7 +33,7 @@ const Listview = ({ coin }) => {
         </Tooltip>
       </td>
 
-      {!isPositive ? (
+      {coinChange < 0 ? (
         <td className="change_percent">
           <Tooltip title="Price-Change" placement="bottom">
             <div className="coin-decrement">
@@ -74,7 +65,7 @@ const Listview = ({ coin }) => {
         <Tooltip title="Current-Price" placement="bottom">
           <p
             className="currentPrice"
-            style={{ color: !isPositive ? "var(--red)" : "var(--green)" }}
+            style={{ color: coinChange < 0 ? "var(--red)" : "var(--green)" }}
           >{`$${coin.current_price}`}</p>
         </Tooltip>
       </td>
@@ -93,14 +84,15 @@ const Listview = ({ coin }) => {
           <span
             className="star-icon-list"
             style={{
-              border: !isPositive
-                ? "0.1rem solid var(--red)"
-                : "0.1rem solid var(--green)",
+              border:
+                coinChange < 0
+                  ? "0.1rem solid var(--red)"
+                  : "0.1rem solid var(--green)",
             }}
             onClick={() => handleStar(coin.id)}
           >
             <StarOutlineIcon
-              style={{ color: !isPositive ? "var(--red)" : "var(--green)" }}
+              style={{ color: coinChange < 0 ? "var(--red)" : "var(--green)" }}
             />
           </span>
         </Tooltip>
@@ -114,14 +106,15 @@ const Listview = ({ coin }) => {
           <span
             className="star-icon-list"
             style={{
-              border: !isPositive
-                ? "0.1rem solid var(--red)"
-                : "0.1rem solid var(--green)",
+              border:
+                coinChange < 0
+                  ? "0.1rem solid var(--red)"
+                  : "0.1rem solid var(--green)",
             }}
             onClick={() => handleStar(coin.id)}
           >
             <StarOutlineIcon
-              style={{ color: !isPositive ? "var(--red)" : "var(--green)" }}
+              style={{ color: coinChange < 0 ? "var(--red)" : "var(--green)" }}
             />
           </span>
         </Tooltip>

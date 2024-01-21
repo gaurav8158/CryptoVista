@@ -2,6 +2,7 @@ import * as React from "react";
 import Drawer from "@mui/material/Drawer";
 import Button from "@mui/material/Button";
 import MenuRoudedIcon from "@mui/icons-material/Menu";
+import CloseIcon from '@mui/icons-material/Close';
 import { IconButton, Switch } from "@mui/material";
 import { Link } from "react-router-dom";
 import themeContext from "../../../Contaxt/themeContext";
@@ -29,6 +30,11 @@ export default function TemporaryDrawer() {
       </div>
 
       <Drawer anchor={"right"} open={open} onClose={handleDrawerClose}   disableScrollLock={true} >
+      <div className="menu-button">
+        <IconButton onClick={handleDrawerClose}>
+          <CloseIcon style={{ color: "var(--black)",borderRadius:"3rem", fontSize:"3rem",background:"var(--white)" }}  className="Link" />
+        </IconButton>
+      </div>
         <div className="drawer-links">
           <Link to="/">
             <p className="drawer-Link">Home</p>
@@ -36,7 +42,7 @@ export default function TemporaryDrawer() {
           <Link to="/compare">
             <p className="drawer-Link">Compare</p>
           </Link>
-          <Link href="/watchlist">
+          <Link to="/watchlist">
             <p className="drawer-Link">Watchlist</p>
           </Link>
           <Link to="/dashboard">

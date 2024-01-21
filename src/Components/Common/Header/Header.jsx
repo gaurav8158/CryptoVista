@@ -5,18 +5,10 @@ import TemporaryDrawer from "./Drawer";
 import Button from "../Button/Button";
 import { Link } from "react-router-dom";
 import themeContext from "../../../Contaxt/themeContext";
-
+import { motion } from "framer-motion";
 const Header = () => {
 
   const { theme, setTheme, toggleTheme } = useContext(themeContext);
-  // window.addEventListener("scroll", () => {
-  //   let header = document.querySelector("nav");
-  //   if (window.scrollY > 0) {
-  //     header.classList.add("scrolled");
-  //   } else {
-  //     header.classList.remove("scrolled");
-  //   }
-  // });
   useEffect(() => {
     const handleScroll = () => {
       let header = document.querySelector("nav");
@@ -38,9 +30,13 @@ const Header = () => {
   return (
     <nav className="header">
       <Link to="/">
-        <h1 className="logo" style={{ color: "var(--blue)" }}>
+        <motion.h1 
+         initial={{ opacity: 0, x: '-50%' }}
+         animate={{ opacity: 1, x: '0%' }}
+         transition={{ duration: 1, delay: 0.3 }}
+        className="logo" style={{ color: "var(--blue)" }}>
         CryptoVista
-        </h1>
+        </motion.h1>
       </Link>
       <div className="links">
         <Switch

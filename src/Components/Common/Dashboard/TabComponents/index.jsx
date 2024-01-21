@@ -32,6 +32,7 @@ export default function TabComponents({ data }) {
         <TabPanel className="grid-flex" value="Grid">
           {data.map((coin, i) => (
             <motion.div
+            key={i}
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -55,6 +56,7 @@ export default function TabComponents({ data }) {
                 duration: 0.5,
                 delay: 0.25 + ((i + 8) % 8) * 0.1,
               }}
+              key={i}
             >
               <Listview coin={coin} />
             </motion.div>

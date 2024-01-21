@@ -24,6 +24,7 @@ const WatchList = () => {
       console.log(myCoin);
       if (myCoin) {
         setCoinData(myCoin);
+        setIsLoading(false);
       }
       console.log(coinData, idArr);
     } catch (error) {
@@ -31,15 +32,15 @@ const WatchList = () => {
     }
   };
 
-  useEffect(() => {
-    get100Coin();
-    if (coinData.length > 0) setIsLoading(false);
-  }, [idArr]);
-  useEffect(() => {
-    if (coinData.length > 0) {
-      setIsLoading(false);
-    }
-  }, [coinData]);
+  // useEffect(() => {
+  //   get100Coin();
+  //   if (coinData.length > 0) setIsLoading(false);
+  // }, [idArr]);
+  // useEffect(() => {
+  //   if (coinData.length > 0) {
+  //     setIsLoading(false);
+  //   }
+  // }, [coinData]);
   console.log(idArr);
   const filterList =
     coinData.length !== 0 && coinData?.filter((val) => idArr.includes(val.id));
@@ -83,7 +84,7 @@ const WatchList = () => {
           )}
         </div>
       )}
-       <Footer/>
+      <Footer />
     </div>
   );
 };

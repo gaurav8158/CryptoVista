@@ -9,7 +9,6 @@
   left: 0;
   z-index: 100;
   background-color: transparent !important;
-
   transition: backdrop-filter 0.3s ease;
 }
 nav.scrolled {
@@ -41,6 +40,28 @@ nav.scrolled {
 }
 .logo {
   font-size: 2rem;
+  border: 2px solid transparent;
+  padding: 0.5rem;
+  border-radius: 2rem;
+  animation: borderAnimation 2s infinite linear;
+}
+
+@keyframes borderAnimation {
+  0% {
+    border-color: #3498db;
+  }
+  25% {
+    border-color: #e74c3c;
+  }
+  50% {
+    border-color: #2ecc71;
+  }
+  75% {
+    border-color: #f39c12;
+  }
+  100% {
+    border-color: #3498db;
+  }
 }
 
 .drawer-menu {
@@ -53,20 +74,29 @@ nav.scrolled {
   height: 100%;
   padding-left: 0rem;
   padding: 1rem;
+  padding-left: 2rem;
   font-size: xx-large;
   font-weight: 500;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   gap:2rem;
 }
 .MuiDrawer-paperAnchorRight{
-  width: 60vw !important;
+  width: 50% !important;
+  min-width: 300px;
   background-color: var(--black) !important;
   color: var(--white) !important;
 }
 .css-1160xiw-MuiPaper-root-MuiDrawer-paper{
-  background-color: var(--black);
+  background-color: var(--black) !important;
+  transition: transform 0.3s ease, opacity 0.3s ease; /* Smooth transition effect */
+  transform: translateX(-100%);
+  border-bottom-left-radius: 200px;
+}
+.css-1160xiw-MuiPaper-root-MuiDrawer-paper.open{
+  transform: translateX(0);
+
+ 
 }
 @media only screen and (max-width: 800px) {
   .header {

@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import Header from "../Components/Common/Header/Header";
 import BacktoTop from "../Components/Common/Dashboard/BacktoTop/BacktoTop";
 import SelectCoin from "../Components/Compare/SelectCoin/SelectCoin";
-import axios from "axios";
 import BasicSelect from "../Components/Coin/selectDropdown/selectDropdown";
 import { getCoinData } from "../Functions/getCoinData";
 import { getObject } from "../Functions/getObject";
 import { getCoinPrices } from "../Functions/getCoinPrices";
-import { getData } from "../Functions/getData";
 import Loader from "../Components/Common/Dashboard/Loader/Loader";
 import CoinDescription from "../Components/Coin/CoinDescription/CoinDescription";
 import Listview from "../Components/Common/Dashboard/Listview/Listview";
@@ -17,6 +15,7 @@ import ToggleButtons from "../Components/Coin/ToggleButton/ToggleButton";
 import { motion } from "framer-motion";
 import { convertNumber } from "../Functions/convertNumber";
 import Footer from "../Components/Common/Footer/Footer";
+import { toast } from "react-toastify";
 const ComparePage = () => {
   const [coin1, setCoin1] = useState("bitcoin");
   const [coin2, setCoin2] = useState("ethereum");
@@ -66,67 +65,98 @@ const ComparePage = () => {
     },
   };
 
-  const handleChange = async (event) => {
-    setIsLoading(true);
-    setDays(event.target.value);
-    const prices1 = await getCoinPrices(coin1, event.target.value, toggle);
-    const prices2 = await getCoinPrices(coin2, event.target.value, toggle);
-    saveChartData(setChartData, prices1, prices2);
-    setIsLoading(false);
-  };
-
   useEffect(() => {
     getData();
   }, []);
   async function getData() {
     setIsLoading(true);
-    const data1 = await getCoinData(coin1);
-    const data2 = await getCoinData(coin2);
-    console.log(data1, data2);
-    if (data1) {
-      getObject(setCrypto1Data, data1);
-    }
-    if (data2) {
-      getObject(setCrypto2Data, data2);
-      const prices1 = await getCoinPrices(coin1, days, toggle);
-      const prices2 = await getCoinPrices(coin2, days, toggle);
-      saveChartData(setChartData, prices1, prices2);
-      setIsLoading(false);
+    try {
+      const data1 = await getCoinData(coin1);
+      const data2 = await getCoinData(coin2);
+      console.log(data1, data2);
+      if (data1) {
+        getObject(setCrypto1Data, data1);
+      }
+      if (data2) {
+        getObject(setCrypto2Data, data2);
+        const prices1 = await getCoinPrices(coin1, days, toggle);
+        const prices2 = await getCoinPrices(coin2, days, toggle);
+        if (prices1.length > 0 && prices2.length > 0) {
+          await saveChartData(setChartData, prices1, prices2);
+          setIsLoading(false);
+        }
+      }
+      if (!data1 || !data2) {
+        toast.error(
+          "You have reached the limit of free version please try again after sometime"
+        );
+      }
+    } catch (error) {
+      toast.error(
+        "You have reached the limit of free version please try again after sometime"
+      );
+      console.log(error);   
     }
   }
 
+  const handleChange = async (event) => {
+    setIsLoading(true);
+    setDays(event.target.value);
+    try {
+      const prices1 = await getCoinPrices(coin1, event.target.value, toggle);
+      const prices2 = await getCoinPrices(coin2, event.target.value, toggle);
+      if (prices1.length > 0 && prices2.length > 0) {
+        await saveChartData(setChartData, prices1, prices2);
+        setIsLoading(false);
+      }
+    } catch (error) {
+      toast.error(
+        "You have reached the limit of free version please try again after sometime"
+      );
+      console.log(error);
+    }
+  };
+
   const handleCoinChange = async (event, isCoin2) => {
     console.log(event.target.value);
-    try{
+    try {
       setIsLoading(true);
       if (isCoin2) {
         setCoin2(event.target.value);
         const data = await getCoinData(event.target.value);
-        getObject(setCrypto2Data, data);
+        if (data) getObject(setCrypto2Data, data);
       } else {
         setCoin1(event.target.value);
         const data = await getCoinData(event.target.value);
-        getObject(setCrypto1Data, data);
+        if (data) getObject(setCrypto1Data, data);
       }
       const prices1 = await getCoinPrices(coin1, days, toggle);
       const prices2 = await getCoinPrices(coin2, days, toggle);
       if (prices1.length > 0 && prices2.length > 0) {
-       await saveChartData(setChartData, prices1, prices2);
+        await saveChartData(setChartData, prices1, prices2);
         setIsLoading(false);
       }
+    } catch (error) {
+      toast.error(
+        "You have reached the limit of free version please try again after sometime"
+      );
+      console.log(error);
     }
-  catch(error){
-    console.log(error)
-  }
   };
   const handleToggle = async (event, newToggle) => {
     setIsLoading(true);
     setToggle(newToggle);
     console.log(newToggle);
-    const prices1 = await getCoinPrices(coin1, days, newToggle);
-    const prices2 = await getCoinPrices(coin2, days, newToggle);
-    saveChartData(setChartData, prices1, prices2);
-    setIsLoading(false);
+    try {
+      const prices1 = await getCoinPrices(coin1, days, newToggle);
+      const prices2 = await getCoinPrices(coin2, days, newToggle);
+      if (prices1.length > 0 && prices2.length > 0) {
+        await saveChartData(setChartData, prices1, prices2);
+        setIsLoading(false);
+      }
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   return (
@@ -178,7 +208,7 @@ const ComparePage = () => {
       ) : (
         <Loader />
       )}
-       <Footer/>
+      <Footer />
     </div>
   );
 };

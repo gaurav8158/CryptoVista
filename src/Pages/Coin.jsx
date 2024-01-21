@@ -60,19 +60,20 @@ const Coin = () => {
       mode: "index",
       intersect: false,
     },
-    scales:{
-      crypto1:{
-          type:"linear",
-          position:"left",
-          display:true,
-          ticks:{
-              callback:function(value,index,ticks){
-                  if(toggle=="prices" || toggle=="market_caps") return "$"+convertNumber(value.toLocaleString());
-              else return convertNumber(value.toLocaleString());
-              }
-          }
+    scales: {
+      crypto1: {
+        type: "linear",
+        position: "left",
+        display: true,
+        ticks: {
+          callback: function (value, index, ticks) {
+            if (toggle == "prices" || toggle == "market_caps")
+              return "$" + convertNumber(value.toLocaleString());
+            else return convertNumber(value.toLocaleString());
+          },
+        },
       },
-    }
+    },
   };
 
   const handleChange = async (event) => {
@@ -105,18 +106,15 @@ const Coin = () => {
         <Loader />
       ) : (
         <div className="coin-container">
-    
-       <motion.div
-       initial={{ opacity: 0, x:-50 }}
-       animate={{ opacity: 1, x:0 }}
-       transition={{ duration: 1 }}
-       className="grey-wrapper">
-        {coinData.length !== 0 && 
-        <Listview coin={coinData} />
-        }
-      </motion.div >
-      
-         
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1 }}
+            className="grey-wrapper"
+          >
+            {coinData.length !== 0 && <Listview coin={coinData} />}
+          </motion.div>
+
           <div className="graph-container">
             <BasicSelect days={days} handleChange={handleChange} />
             <ToggleButtons
@@ -124,32 +122,37 @@ const Coin = () => {
               setToggle={setToggle}
               handleToggle={handleToggle}
             />
-            <LineChart chartData={chartData} options={options} toggle={toggle} />
-           
-          </div> 
+            <LineChart
+              chartData={chartData}
+              options={options}
+              toggle={toggle}
+            />
+          </div>
 
           {coinData.length !== 0 ? (
-             <motion.div  initial={{ opacity: 0, x:-50 }}
-             animate={{ opacity: 1, x:0 }}
-             transition={{ duration: 1 }}>
-            <CoinDescription name={coinData.name} desc={coinData.desc} />
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 1 }}
+            >
+              <CoinDescription name={coinData.name} desc={coinData.desc} />
             </motion.div>
           ) : (
             ""
           )}
         </div>
-        )}
-         <Footer/>
+      )}
+      <Footer />
     </div>
   );
 };
 
 export default Coin;
 
-
-
-{/* <motion.div 
+{
+  /* <motion.div 
 initial={{ opacity: 0, y:100 }}
 animate={{ opacity: 1, y:20 }}
 transition={{ duration: 1 }}
-> */}
+> */
+}

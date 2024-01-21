@@ -26,7 +26,6 @@ const Dashboard = ({ list }) => {
     get100cCoin();
   }, []);
   const get100cCoin = async () => {
-   
     const myCoin = await getData();
     if (myCoin) {
       setData(myCoin);
@@ -58,7 +57,7 @@ const Dashboard = ({ list }) => {
           )}
         </>
       )}
-      <Footer/>
+      <Footer />
     </div>
   );
 };

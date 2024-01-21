@@ -50,8 +50,6 @@ const LandingPage = () => {
             }}
             onClick={() => console.log("shared successfully!")}
           >
-            {/* <Button onClick={() => console.log("Button clicked!")} text="Share" outline={true} /> */}
-            {/* <button>CLick</button> */}
             <p className="Link">
               <Button text="Share" outline={true} />
             </p>
